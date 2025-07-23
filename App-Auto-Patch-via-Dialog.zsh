@@ -1196,6 +1196,13 @@ get_preferences() {
     optionalLabelsArray=($(echo ${optional_labels_option}))
     convertedLabelsArray=($(echo ${convertedLabels}))
 
+    # Delete existing saved label arrays
+    /usr/libexec/PlistBuddy -c 'delete ":IgnoredLabels"' "${appAutoPatchLocalPLIST}.plist" 2> /dev/null
+    /usr/libexec/PlistBuddy -c 'delete ":RequiredLabels"' "${appAutoPatchLocalPLIST}.plist" 2> /dev/null
+    /usr/libexec/PlistBuddy -c 'delete ":OptionalLabels"' "${appAutoPatchLocalPLIST}.plist" 2> /dev/null
+    /usr/libexec/PlistBuddy -c 'delete ":ConvertedLabels"' "${appAutoPatchLocalPLIST}.plist" 2> /dev/null
+
+    # Create new label arrays
     /usr/libexec/PlistBuddy -c 'add ":DiscoveredLabels" array' "${appAutoPatchLocalPLIST}.plist" 2> /dev/null
     /usr/libexec/PlistBuddy -c 'add ":IgnoredLabels" array' "${appAutoPatchLocalPLIST}.plist" 2> /dev/null
     /usr/libexec/PlistBuddy -c 'add ":RequiredLabels" array' "${appAutoPatchLocalPLIST}.plist" 2> /dev/null
